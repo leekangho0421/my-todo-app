@@ -84,23 +84,49 @@ h1 {
     color: #555;
 }
 
-/* ✨ 완료된 카드에 붙을 새로운 연두색 테마 클래스 ✨ */
 .card-completed {
-    border: 2px solid #000000 !important; /* iOS 연두색 테마 테두리 */
-    background-color: rgb(248, 242, 190) !important; /* 아주 연한 연두색 배경 */
-    box-shadow: 0 4px 12px rgba(76, 217, 100, 0.15) !important; /* 연두색 빛 그림자 */
+    border: 2px solid #000000 !important;
+    background-color: rgb(248, 242, 190) !important;
+    box-shadow: 0 4px 12px rgba(76, 217, 100, 0.15) !important;
 }
 
 /* ✅ 체크 표시 아이콘 스타일 (span으로 만듦) */
 .check-icon {
-    color: #01a50a; /* 연두색 */
+    color: #01a50a;
     font-weight: bold;
     margin-right: 10px; /* 글자와 간격 */
     font-size: 1.2em; /* 약간 크게 */
 }
 
-/* ✨ 제목의 이모지 전용 스타일 ✨ */
 .title-emoji {
-    -webkit-text-stroke: 0; /* 이모지에는 테두리를 0으로 만들어서 없앰 */
+    -webkit-text-stroke: 2; /* 이모지에는 테두리를 0으로 만들어서 없앰 */
     margin-right: 8px; /* 이모지와 글자 사이에 살짝 여백 주기 */
+}
+
+/*화면 크기가 480px 이하 일떄만 실행*/
+@media (max-width : 480px) {
+    body {
+        padding: 30px 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    body > div:first-of-type {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    #add-btn {
+        width: 100%;
+        margin-left: 0;
+        padding: 14px;
+    }
+
+    #todo-list {
+        max-width: 100%;
+    }
 }
