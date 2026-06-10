@@ -1,5 +1,6 @@
 const inputElement = document.getElementById('todo-input');
-const buttonElement = document.getElementById('add-btn');
+const addButtonElement = document.getElementById('add-btn');
+const allDeleteElement = document.getElementById('all-delete');
 const todoListElement = document.getElementById('todo-list');
 
 // 1. 우리의 진짜 데이터 그릇 (할 일 목록 배열)
@@ -25,21 +26,21 @@ function renderTodos() {
         
         const completeBtn = document.createElement('button');
 
-        // ✨ [요청 반영] 완료 상태에 따른 완전 새로운 디자인 로직 ✨
+        // 완료 상태에 따른 완전 새로운 디자인 로직
         if (todo.isCompleted === true) {
-            // 1. 카드 전체에 연두색 테마 클래스 적용 (CSS에서 정의한 것)
+            // 카드 전체에 연두색 테마 클래스 적용 (CSS에서 정의한 것)
             newCard.classList.add('card-completed');
 
-            // 2. 글자에 취소선과 연한 색 적용 (이전보다 더 연하게)
+            // 글자에 취소선과 연한 색 적용 (이전보다 더 연하게)
             textSpan.style.textDecoration = 'line-through';
             textSpan.style.color = '#bbb'; 
 
-            // 3. [핵심] 글자 왼쪽에 꽂을 '연두색 체크 아이콘' span 만들기
+            // [핵심] 글자 왼쪽에 꽂을 '연두색 체크 아이콘' span 만들기
             const checkIcon = document.createElement('span');
             checkIcon.textContent = '✓'; // 체크 모양 문자
             checkIcon.classList.add('check-icon'); // CSS에서 정의한 아이콘 스타일 적용
 
-            // 4. [조립 변경] 카드 안에 체크 아이콘을 먼저 넣고, 그 뒤에 글자를 넣음
+            // [조립 변경] 카드 안에 체크 아이콘을 먼저 넣고, 그 뒤에 글자를 넣음
             newCard.appendChild(checkIcon); 
             
             completeBtn.textContent = '취소'; 
@@ -49,8 +50,8 @@ function renderTodos() {
 
         completeBtn.addEventListener('click', function() {
             todo.isCompleted = !todo.isCompleted; 
-            saveTodos();    
-            renderTodos();  
+            saveTodos(); 
+            renderTodos();
         });
 
         const deleteBtn = document.createElement('button');
@@ -65,16 +66,39 @@ function renderTodos() {
             }
         });
 
-        // 5. 이미 위에서 조립된 체크 아이콘 + 글자 뒤에, 버튼들을 조립
+        // 이미 위에서 조립된 체크 아이콘 + 글자 뒤에, 버튼들을 조립
         newCard.appendChild(textSpan); // (todo.isCompleted가 true라면 checkIcon 뒤에 붙음)
         newCard.appendChild(completeBtn);
         newCard.appendChild(deleteBtn);
         todoListElement.appendChild(newCard);
     });
+
+    // [ 달성률 계산 로직 ]
+    // 1. 필요한 HTML 태크 가져오기
+    const progressText = document.getElementById('progress-text');
+    const progressBarFill = document.getElementById('progress-bar-fill');
+
+    // 2. 전체 개수, 완료된 일 개수 세기
+    // 전체 개수
+    const totalCount = todos.length;
+    // 완료된 일 개수 / 배열 중에서 isCompleted가 true인 것
+    const completedCount = todos.filter(function(t) {
+        return t.isCompleted === true;
+    }).length;
+
+    // 3. % 퍼센트 계산
+    let percentage = 0;
+    if(totalCount > 0) {
+        percentage = Math.round((completedCount / totalCount)*100);
+    }
+
+    // 4. 화면에 띄우기
+    progressText.textContent = `오늘의 할 일: ${percentage}% 완료`;
+    progressBarFill.style.width = percentage + '%';
 }
 
 // 4. '추가하기' 버튼을 눌렀을 때
-buttonElement.addEventListener('click', function() {
+addButtonElement.addEventListener('click', function() {
     const inputValue = inputElement.value;
     if (inputValue === '') {
         alert('할 일을 입력해주세요!');
@@ -94,6 +118,14 @@ buttonElement.addEventListener('click', function() {
 
     inputElement.value = '';
 });
+
+allDeleteElement.addEventListener('click', function() {
+    if(confirm("정말 전체 삭제하시겠습니까?")) {
+        todos = [];
+        saveTodos();
+        renderTodos();
+    }
+})
 
 // 5. 프로그램이 맨 처음 시작될 때 실행되는 부분 (초기화)
 function loadTodos() {
