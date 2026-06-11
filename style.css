@@ -114,13 +114,13 @@ h1 {
 }
 
 /*화면 크기가 480px 이하 일떄만 실행*/
-@media (max-width : 480px) {
+@media (max-width : 1000px) {
     body {
         padding: 40px 50px;
     }
 
     h1 {
-        font-size: 30px;
+        font-size: 25px;
     }
 
     body > div:first-of-type {
@@ -137,7 +137,7 @@ h1 {
     }
 
     #todo-list {
-        max-width: 100%;
+        max-width: 90%;
     }
 }
 
