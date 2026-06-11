@@ -57,7 +57,7 @@ function renderTodos() {
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = '삭제';
         deleteBtn.addEventListener('click', function() {
-            if (confirm('정말 삭제하시겠습니까?')) {
+            if (confirm('정말 삭제하시겠습니까?\n삭제 후 복구할 수 없습니다.')) {
                 todos = todos.filter(function(t) {
                     return t.id !== todo.id; 
                 });
@@ -93,7 +93,7 @@ function renderTodos() {
     }
 
     // 4. 화면에 띄우기
-    progressText.textContent = `오늘의 할 일: ${percentage}% 완료`;
+    progressText.textContent = `버킷리스트: ${percentage}% 완료`;
     progressBarFill.style.width = percentage + '%';
 }
 
@@ -101,7 +101,7 @@ function renderTodos() {
 addButtonElement.addEventListener('click', function() {
     const inputValue = inputElement.value;
     if (inputValue === '') {
-        alert('할 일을 입력해주세요!');
+        alert('버킷리스트를 입력해주세요!');
         return;
     }
 
@@ -120,7 +120,7 @@ addButtonElement.addEventListener('click', function() {
 });
 
 allDeleteElement.addEventListener('click', function() {
-    if(confirm("정말 전체 삭제하시겠습니까?")) {
+    if(confirm("정말 전체 삭제하시겠습니까?\n삭제 후 복구할 수 없습니다.")) {
         todos = [];
         saveTodos();
         renderTodos();
