@@ -49,10 +49,20 @@ function renderTodos() {
         }
 
         completeBtn.addEventListener('click', function() {
-            todo.isCompleted = !todo.isCompleted; 
-            saveTodos(); 
-            renderTodos();
+    todo.isCompleted = !todo.isCompleted; 
+    
+    // ✨ [새로 추가] 완료 상태(true)가 되었을 때만 폭죽 터트리기!
+    if (todo.isCompleted === true) {
+        confetti({
+            particleCount: 100, // 폭죽 알갱이 개수
+            spread: 70,         // 옆으로 퍼지는 각도
+            origin: { y: 0.6 }  // 폭죽이 시작되는 높이 (0.6은 화면 중간쯤)
         });
+    }
+
+    saveTodos();    
+    renderTodos();  
+});
 
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = '삭제';
