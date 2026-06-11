@@ -46,14 +46,15 @@ h1 {
 }
 
 #all-delete {
-    padding: 5px 8px;
+    padding: 1px 10px;
     font-size: 16px;
     border: 2px solid #000000;
-    width: 150px;
     border-radius: 8px;
     cursor: pointer;
     margin-top: 5px;
     background-color: #e44d39;
+    display: block;
+    margin: 0px auto 0;
 }
 
 #todo-list {
@@ -120,7 +121,7 @@ h1 {
     }
 
     h1 {
-        font-size: 15px;
+        font-size: 22px;
     }
 
     body > div:first-of-type {
