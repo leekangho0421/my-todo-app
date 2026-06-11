@@ -114,13 +114,13 @@ h1 {
 }
 
 /*화면 크기가 480px 이하 일떄만 실행*/
-@media (max-width : 1000px) {
+@media (max-width : 480px) {
     body {
         padding: 40px 50px;
     }
 
     h1 {
-        font-size: 25px;
+        font-size: 15px;
     }
 
     body > div:first-of-type {
@@ -128,6 +128,11 @@ h1 {
         flex-direction: column;
         width: 100%;
         max-width: 300px;
+    }
+    #todo-input {
+        width: 100%;
+        margin-left: 0;
+        padding: 14px;
     }
 
     #add-btn {
